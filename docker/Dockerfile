@@ -32,6 +32,15 @@ RUN groupadd -r node \
 &&  useradd -r -g node node \
 &&  chown node:node uploads
 
+RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ saucy universe" >> /etc/apt/sources.list \
+&& echo "deb-src http://us.archive.ubuntu.com/ubuntu/ saucy universe" >> /etc/apt/sources.list \
+&& echo "deb http://us.archive.ubuntu.com/ubuntu/ saucy-updates universe" >> /etc/apt/sources.list \
+&& echo "deb-src http://us.archive.ubuntu.com/ubuntu/ saucy-updates universe" >> /etc/apt/sources.list \
+
+RUN apt-get update \
+&& apt-get install -y openssl \
+&& apt-get install vim
+
 ENV LCB_DATABASE_URI=mongodb://mongo/letschat \
     LCB_HTTP_HOST=0.0.0.0 \
     LCB_HTTP_PORT=8080 \
